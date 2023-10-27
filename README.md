@@ -4,7 +4,7 @@
 # UAS PRATIKUM PEMOGRAMAN 2
 Repositori ini berisi kode dan dokumentasi untuk projek ujian akhir kami pada mata kuliah Pemrograman 2 di Universitas Syiah Kuala. Projek yang dimaksud merupakan projek aplikasi kasir berbasis baris <i> command line application </i> yang dirancang untuk mengelola penjualan, keuangan dan juga menghasilkan laporan untuk bisnis kecil.
 
-## Members
+## Anggota Kelompok
 👋 <b> NAJMU RAYYANI (	2208001010008 ) </b> <br/>
 👋 <b> SYLVINA AMANDA ( 2008001010015 ) </b> <br/>
 👋 <b> FADLI AZMI ( 2008001010020 ) </b> <br/>
