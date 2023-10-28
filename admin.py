@@ -6,9 +6,15 @@ from datetime import datetime
 import time
 from guest import Guest
 from color import Color, BackgroundColor
+import json
+from ultilities import Utilities
+from prettytable import PrettyTable
 
 # 👇 Membuat class khusus untuk admin
 class KasirAdmin:
+    utilities        = Utilities("products.json")
+    admin_is_running = True
+
     # 👇 Membuat constructor agar memanggil method welcome pertama kali
     def __init__(self):
         self.welcome()
@@ -30,42 +36,79 @@ class KasirAdmin:
         self.garis()
         print(BackgroundColor.IJO + "                      Tambah Barang                   " + BackgroundColor.RESET)
         self.garis()
+        id_barang    = input("Masukkan id barang: ")
+        nama_barang  = input("Masukkan nama barang: ")
+        stock_barang = input("Masukkan stock barang: ")
+        harga_barang = input("Masukkan harga barang: ")
+        barang = {
+            'id': id_barang,
+            'name': nama_barang,
+            'price': harga_barang,
+            'stock': stock_barang
+        }
+        self.utilities.add_product_to_json(barang)
 
     def lihat_barang(self):
         self.garis()
-        print("Lihat Barang")
+        print(BackgroundColor.IJO + "                      Lihat Barang                    " + BackgroundColor.RESET)
         self.garis()
+        # 👇 Membaca file json dari method `read_products_json`
+        lists_barang = self.utilities.read_products_json()
+        # 👇 Membuat tabel dari library `PrettyTable` untuk menampilkan data barang
+        tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK'])
+        # 👇 Melakukan perulangan untuk menampilkan data barang
+        for product in lists_barang['products']:
+            tabel_barang.add_row([product['id'], product['name'], product['price'], product['stock']])
+        print(f"{Color.KUNING} TABEL BARANG {BackgroundColor.RESET}")
+        print(tabel_barang)
 
     def edit_barang(self):
         self.garis()
-        print("Edit Barang")
-        self.garis()
+        print(BackgroundColor.IJO + "                       Edit Barang                    " + BackgroundColor.RESET)
+        id_barang = input("Masukkan id barang yang ingin diedit: ")
+        nama_barang  = input("Masukkan nama barang: ")
+        stock_barang = input("Masukkan stock barang: ")
+        harga_barang = input("Masukkan harga barang: ")
+        barang = {
+            'id': id_barang,
+            'name': nama_barang,
+            'price': harga_barang,
+            'stock': stock_barang
+        }
+        self.utilities.update_product(id_barang, barang)
 
     def hapus_barang(self):
         self.garis()
-        print("Hapus Barang")
+        print(BackgroundColor.IJO + "                      Hapus Barang                    " + BackgroundColor.RESET)
+        id_barang = input("Masukkan id barang yang ingin dihapus: ")
+        self.utilities.del_product(id_barang)
         self.garis()
 
     def admin_menu(self):
-        print("[1]. Tambah Barang")
-        print("[2]. Lihat Barang")
-        print("[3]. Edit Barang")
-        print("[4]. Hapus Barang")
-        print("[5]. Keluar")
-        pilihan_menu = input("Pilihan anda (1/2/3/4/5):")
-        if pilihan_menu == "1":
-            self.tambah_barang()
-        elif pilihan_menu == "2":
-            self.lihat_barang()
-        elif pilihan_menu == "3":
-            self.edit_barang()
-        elif pilihan_menu == "4":
-            self.hapus_barang()
-        elif pilihan_menu == "5":
-            return False
-        else:
-            print(Color.MERAH + "Pilihan tidak valid")
-            return False
+        while self.admin_is_running == True:
+            self.garis()
+            print(f"{BackgroundColor.IJO}                       MENU ADMIN                     {BackgroundColor.RESET}")
+            self.garis()
+            print("[1]. Tambah Barang")
+            print("[2]. Lihat Barang")
+            print("[3]. Edit Barang")
+            print("[4]. Hapus Barang")
+            print("[5]. Keluar")
+            pilihan_menu = input("Pilihan anda (1/2/3/4/5):")
+            if pilihan_menu == "1":
+                self.tambah_barang()
+            elif pilihan_menu == "2":
+                self.lihat_barang()
+            elif pilihan_menu == "3":
+                self.edit_barang()
+            elif pilihan_menu == "4":
+                self.hapus_barang()
+            elif pilihan_menu == "5":
+                self.admin_is_running = False
+                return False
+            else:
+                print(Color.MERAH + "Pilihan tidak valid")
+                return False
         
     # 👇 Method untuk melakukan proses autentikasi pengguna
     def auth_admin(self):
@@ -83,9 +126,7 @@ class KasirAdmin:
                 message = "Menghubungkan ke database" + "." * i
                 print(message, end="\r")
                 time.sleep(0.5)
-            self.garis()
-            print(Color.IJO + "             Berhasil Login sebagai Admin" + BackgroundColor.RESET)
-            self.garis()
+            print(Color.IJO + "Berhasil Login sebagai Admin" + BackgroundColor.RESET)
             self.admin_menu()
         else:
             print(Color.MERAH + "Login Gagal" + BackgroundColor.RESET)

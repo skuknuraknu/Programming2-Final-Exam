@@ -1,0 +1,28 @@
+{
+    "products": [
+        {
+            "id": "P-001",
+            "name": "Buku Tulis",
+            "price": 8000,
+            "stock": 10
+        },
+        {
+            "id": "P-002",
+            "name": "Korek Api",
+            "price": "5000",
+            "stock": "10"
+        },
+        {
+            "id": "P-003",
+            "name": "Buku Gambar",
+            "price": "3500",
+            "stock": "7"
+        },
+        {
+            "id": "P-004",
+            "name": "Beng - Beng",
+            "price": "2500",
+            "stock": "20"
+        }
+    ]
+}

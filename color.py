@@ -8,6 +8,7 @@ class Color:
 
 # 👇 Membuat class `bgWarna` untuk menyimpan data warna background
 class BackgroundColor:
-    MERAH = '\x1b[5;30;47m'  # Warna latar belakang merah
-    IJO   = '\x1b[5;30;42m'  # Warna latar belakang hijau
-    RESET = '\x1b[0m'  # RESET berguna untuk mereset warna menjadi default
+    MERAH      = '\x1b[5;30;47m'  # Warna latar belakang merah
+    BIRU_GELAP = '\x1b[6;30;46m'  # Warna latar belakang merah
+    IJO        = '\x1b[5;30;42m'  # Warna latar belakang hijau
+    RESET      = '\x1b[0m'  # RESET berguna untuk mereset warna menjadi default
