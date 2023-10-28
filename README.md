@@ -10,4 +10,8 @@ Repositori ini berisi kode dan dokumentasi untuk projek ujian akhir kami pada ma
 👋 <b> FADLI AZMI ( 2008001010020 ) </b> <br/>
 👋 <b> HAERISKAL KAMIL ( 2108001010042 ) </b> <br/>
 
+## Cara Install
+✨ Install library prettytable "python -m pip install -U prettytable" (Paste ke cmd) <br/>
+✨ jalankan file: py uas.py
+
 <hr/>
