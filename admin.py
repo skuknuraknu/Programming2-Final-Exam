@@ -14,6 +14,7 @@ from prettytable import PrettyTable
 class KasirAdmin:
     utilities        = Utilities("products.json")
     admin_is_running = True
+    is_try_login     = True
 
     # 👇 Membuat constructor agar memanggil method welcome pertama kali
     def __init__(self):
@@ -40,11 +41,13 @@ class KasirAdmin:
         nama_barang  = input("Masukkan nama barang: ")
         stock_barang = input("Masukkan stock barang: ")
         harga_barang = input("Masukkan harga barang: ")
+        diskon_barang = input("Masukkan diskon barang: ")
         barang = {
             'id': id_barang,
             'name': nama_barang,
             'price': harga_barang,
-            'stock': stock_barang
+            'stock': stock_barang,
+            'discount': diskon_barang,
         }
         self.utilities.add_product_to_json(barang)
 
@@ -55,10 +58,13 @@ class KasirAdmin:
         # 👇 Membaca file json dari method `read_products_json`
         lists_barang = self.utilities.read_products_json()
         # 👇 Membuat tabel dari library `PrettyTable` untuk menampilkan data barang
-        tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK'])
+        tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK', "DISCOUNT"])
         # 👇 Melakukan perulangan untuk menampilkan data barang
         for product in lists_barang['products']:
-            tabel_barang.add_row([product['id'], product['name'], product['price'], product['stock']])
+            tabel_barang.add_row([
+                product['id'], product['name'], 
+                product['price'], product['stock'],
+                product['discount']])
         print(f"{Color.KUNING} TABEL BARANG {BackgroundColor.RESET}")
         print(tabel_barang)
 
@@ -69,11 +75,13 @@ class KasirAdmin:
         nama_barang  = input("Masukkan nama barang: ")
         stock_barang = input("Masukkan stock barang: ")
         harga_barang = input("Masukkan harga barang: ")
+        diskon_barang = input("Masukkan diskon barang: ")
         barang = {
             'id': id_barang,
             'name': nama_barang,
             'price': harga_barang,
-            'stock': stock_barang
+            'stock': stock_barang,
+            'discount': diskon_barang
         }
         self.utilities.update_product(id_barang, barang)
 
@@ -112,25 +120,26 @@ class KasirAdmin:
         
     # 👇 Method untuk melakukan proses autentikasi pengguna
     def auth_admin(self):
-        username = input("Masukkan Username: ")
-        password = input("Masukkan Password: ")
-        # 👇 Cek apakah username & password yang dimasukkan adalah `admin`
-        if username == "admin" and password == "admin":
-            # 👇 Menampilkan pesan sementara
-            for x in range(0, 2):
-                message = "Mohon tunggu sebentar" + "." * x
-                print(message, end="\r")
-                time.sleep(0.5)
-            # 👇 Menampilkan pesan sementara
-            for i in range(0, 2):
-                message = "Menghubungkan ke database" + "." * i
-                print(message, end="\r")
-                time.sleep(0.5)
-            print(Color.IJO + "Berhasil Login sebagai Admin" + BackgroundColor.RESET)
-            self.admin_menu()
-        else:
-            print(Color.MERAH + "Login Gagal" + BackgroundColor.RESET)
-            return False
+       while self.is_try_login == True:
+            username = input("Masukkan Username: ")
+            password = input("Masukkan Password: ")
+            # 👇 Cek apakah username & password yang dimasukkan adalah `admin`
+            if username == "admin" and password == "admin":
+                # 👇 Menampilkan pesan sementara
+                for x in range(0, 2):
+                    message = "Mohon tunggu sebentar" + "." * x
+                    print(message, end="\r")
+                    time.sleep(0.5)
+                # 👇 Menampilkan pesan sementara
+                for i in range(0, 2):
+                    message = "Menghubungkan ke database" + "." * i
+                    print(message, end="\r")
+                    time.sleep(0.5)
+                print(Color.IJO + "Berhasil Login sebagai Admin" + BackgroundColor.RESET)
+                self.is_try_login = False
+                self.admin_menu()
+            else:
+                print(Color.MERAH + "Login Gagal!!" + BackgroundColor.RESET)
 
     # 👇 Menampilkan menu untuk autentikasi pengguna
     def auth(self):

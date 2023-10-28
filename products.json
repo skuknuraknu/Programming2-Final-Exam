@@ -2,27 +2,24 @@
     "products": [
         {
             "id": "P-001",
-            "name": "Buku Tulis",
-            "price": 8000,
-            "stock": 10
-        },
-        {
-            "id": "P-002",
-            "name": "Korek Api",
-            "price": "5000",
-            "stock": "10"
+            "name": "Karet Ikat",
+            "price": "5500",
+            "stock": "20",
+            "discount": "5%"
         },
         {
             "id": "P-003",
-            "name": "Buku Gambar",
-            "price": "3500",
-            "stock": "7"
+            "name": "Karet Gelang",
+            "price": "2500",
+            "stock": "10",
+            "discount": "5%"
         },
         {
-            "id": "P-004",
-            "name": "Beng - Beng",
-            "price": "2500",
-            "stock": "20"
+            "id": "P-002",
+            "name": "Lacoste Hoodie",
+            "price": "450000",
+            "stock": "5",
+            "discount": "10%"
         }
     ]
 }

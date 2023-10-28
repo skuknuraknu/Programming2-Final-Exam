@@ -65,7 +65,8 @@ class Utilities:
                     'id': key, 
                     'name': new_product['name'], 
                     'price': new_product['price'],
-                    'stock': new_product['stock']}
+                    'stock': new_product['stock'],
+                    'discount': new_product['discount']}
                 # 👇 Menambahkan produk baru ke dalam `dictionary`
                 product_lists['products'].append(updated_product)
                 # 👇 mengupdate file json
@@ -78,3 +79,13 @@ class Utilities:
         # Jika produk dengan key yang diberikan tidak ditemukan
         print(f"Produk dengan id {key} tidak ditemukan")
         return False
+    
+    def filter_product(self, name):
+        # 👇 Membaca file json dari method `read_products_json`
+        product_lists     = self.read_products_json()
+        filtered_products = [] 
+        # 👇 Melakukan perulangan untuk mencari produk mirip dengan nama yang diberikan
+        for product in product_lists['products']:
+            if name in product['name']:
+                filtered_products.append(product)
+        return filtered_products
