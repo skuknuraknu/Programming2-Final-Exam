@@ -7,7 +7,7 @@ import time
 from guest import Guest
 from color import Color, BackgroundColor
 import json
-from ultilities import Utilities
+from utilities import Utilities
 from prettytable import PrettyTable
 
 # 👇 Membuat class khusus untuk admin
@@ -37,10 +37,32 @@ class KasirAdmin:
         self.garis()
         print(BackgroundColor.IJO + "                      Tambah Barang                   " + BackgroundColor.RESET)
         self.garis()
+        
         id_barang    = input("Masukkan id barang: ")
+        while id_barang == "": # Jika id barang kosong
+            print(Color.MERAH + "Id barang tidak boleh kosong" + BackgroundColor.RESET)
+            id_barang = input("Masukkan id barang: ")
+
         nama_barang  = input("Masukkan nama barang: ")
-        stock_barang = input("Masukkan stock barang: ")
-        harga_barang = input("Masukkan harga barang: ")
+        while nama_barang == "": # Jika nama barang kosong
+            print(Color.MERAH + "Nama barang tidak boleh kosong" + BackgroundColor.RESET)
+            nama_barang = input("Masukkan nama barang: ")
+
+        stock_barang = 0
+        while True:
+            try:
+                stock_barang = int( input("Masukkan stock barang: ") )
+                break
+            except ValueError:
+                print(f"{Color.MERAH} Gagal!! Harap masukkan angka {BackgroundColor.RESET}")
+
+        harga_barang = 0
+        while True:
+            try:
+                harga_barang = int( input("Masukkan harga barang: ") )
+                break
+            except ValueError:
+                print(f"{Color.MERAH} Gagal!! Harap masukkan angka {BackgroundColor.RESET}")
         barang = {
             'id': id_barang,
             'name': nama_barang,
@@ -68,10 +90,32 @@ class KasirAdmin:
     def edit_barang(self):
         self.garis()
         print(BackgroundColor.IJO + "                       Edit Barang                    " + BackgroundColor.RESET)
-        id_barang = input("Masukkan id barang yang ingin diedit: ")
+        self.garis()
+        id_barang    = input("Masukkan id barang: ")
+        while id_barang == "": # Jika id barang kosong
+            print(Color.MERAH + "Id barang tidak boleh kosong" + BackgroundColor.RESET)
+            id_barang = input("Masukkan id barang: ")
+
         nama_barang  = input("Masukkan nama barang: ")
-        stock_barang = input("Masukkan stock barang: ")
-        harga_barang = input("Masukkan harga barang: ")
+        while nama_barang == "": # Jika nama barang kosong
+            print(Color.MERAH + "Nama barang tidak boleh kosong" + BackgroundColor.RESET)
+            nama_barang = input("Masukkan nama barang: ")
+
+        stock_barang = 0
+        while True:
+            try:
+                stock_barang = int( input("Masukkan stock barang: ") )
+                break
+            except ValueError:
+                print(f"{Color.MERAH} Gagal!! Harap masukkan angka {BackgroundColor.RESET}")
+
+        harga_barang = 0
+        while True:
+            try:
+                harga_barang = int( input("Masukkan harga barang: ") )
+                break
+            except ValueError:
+                print(f"{Color.MERAH} Gagal!! Harap masukkan angka {BackgroundColor.RESET}")
         barang = {
             'id': id_barang,
             'name': nama_barang,
@@ -83,9 +127,10 @@ class KasirAdmin:
     def hapus_barang(self):
         self.garis()
         print(BackgroundColor.IJO + "                      Hapus Barang                    " + BackgroundColor.RESET)
+        self.garis()
         id_barang = input("Masukkan id barang yang ingin dihapus: ")
         self.utilities.del_product(id_barang)
-        self.garis()
+        print("")
 
     def admin_menu(self):
         while self.admin_is_running == True:
@@ -97,7 +142,7 @@ class KasirAdmin:
             print("[3]. Edit Barang")
             print("[4]. Hapus Barang")
             print("[5]. Keluar")
-            pilihan_menu = input("Pilihan anda (1/2/3/4/5):")
+            pilihan_menu = input("Pilihan anda (1/2/3/4/5): ")
             if pilihan_menu == "1":
                 self.tambah_barang()
             elif pilihan_menu == "2":
@@ -121,12 +166,12 @@ class KasirAdmin:
             # 👇 Cek apakah username & password yang dimasukkan adalah `admin`
             if username == "admin" and password == "admin":
                 # 👇 Menampilkan pesan sementara
-                for x in range(0, 2):
+                for x in range(0, 3):
                     message = "Mohon tunggu sebentar" + "." * x
                     print(message, end="\r")
                     time.sleep(0.5)
                 # 👇 Menampilkan pesan sementara
-                for i in range(0, 2):
+                for i in range(0, 5):
                     message = "Menghubungkan ke database" + "." * i
                     print(message, end="\r")
                     time.sleep(0.5)
@@ -142,7 +187,7 @@ class KasirAdmin:
         print("[2]. Login sebagai Guest")
         print("[3]. Keluar")
         
-        pilihan_login = input("Pilihan anda (1/2/3):")
+        pilihan_login = input("Pilihan anda (1/2/3): ")
 
         if pilihan_login == "1":  # 👇 Jika pilihan adalah `1`
             self.auth_admin()

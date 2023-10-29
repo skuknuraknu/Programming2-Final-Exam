@@ -90,3 +90,26 @@ class Utilities:
                 filtered_products.append(product)
         return filtered_products
 
+    def minus_product_stock(self, key, count):
+        # 👇 Membaca file json dari method `read_products_json`
+        product_lists = self.read_products_json()
+        # 👇 Melakukan perulangan untuk mencari produk yang akan dihapus
+        for product in product_lists['products']:
+            if product['id'] == key: # Jika id produk sama dengan key yang diberikan
+                # 👇 Menghapus produk lama
+                product_lists['products'].remove(product)
+                # 👇 Membuat produk baru
+                updated_product = { 
+                    'id': key, 
+                    'name': product['name'], 
+                    'price': product['price'],
+                    'stock': int(product['stock']) - int(count)}
+                # 👇 Menambahkan produk baru ke dalam `dictionary`
+                product_lists['products'].append(updated_product)
+                # 👇 mengupdate file json
+                with open(self.file_path, 'w') as products_file:
+                    json.dump(product_lists, products_file, indent=4)
+                return True
+        # Jika produk dengan key yang diberikan tidak ditemukan
+        print(f"Produk dengan id {key} tidak ditemukan")
+        return False
