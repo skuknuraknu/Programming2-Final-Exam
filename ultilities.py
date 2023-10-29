@@ -1,5 +1,6 @@
 import json
 from color import Color, BackgroundColor
+import locale
 
 class Utilities:
     # 👇 Constructor untuk class Utilities
@@ -65,8 +66,7 @@ class Utilities:
                     'id': key, 
                     'name': new_product['name'], 
                     'price': new_product['price'],
-                    'stock': new_product['stock'],
-                    'discount': new_product['discount']}
+                    'stock': new_product['stock']}
                 # 👇 Menambahkan produk baru ke dalam `dictionary`
                 product_lists['products'].append(updated_product)
                 # 👇 mengupdate file json
@@ -89,3 +89,4 @@ class Utilities:
             if name in product['name']:
                 filtered_products.append(product)
         return filtered_products
+

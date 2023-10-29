@@ -11,15 +11,13 @@
             "id": "P-003",
             "name": "Karet Gelang",
             "price": "2500",
-            "stock": "10",
-            "discount": "5%"
+            "stock": "10"
         },
         {
             "id": "P-002",
             "name": "Lacoste Hoodie",
             "price": "450000",
-            "stock": "5",
-            "discount": "10%"
+            "stock": "5"
         }
     ]
 }

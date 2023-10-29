@@ -41,13 +41,11 @@ class KasirAdmin:
         nama_barang  = input("Masukkan nama barang: ")
         stock_barang = input("Masukkan stock barang: ")
         harga_barang = input("Masukkan harga barang: ")
-        diskon_barang = input("Masukkan diskon barang: ")
         barang = {
             'id': id_barang,
             'name': nama_barang,
             'price': harga_barang,
-            'stock': stock_barang,
-            'discount': diskon_barang,
+            'stock': stock_barang
         }
         self.utilities.add_product_to_json(barang)
 
@@ -58,13 +56,12 @@ class KasirAdmin:
         # 👇 Membaca file json dari method `read_products_json`
         lists_barang = self.utilities.read_products_json()
         # 👇 Membuat tabel dari library `PrettyTable` untuk menampilkan data barang
-        tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK', "DISCOUNT"])
+        tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK'])
         # 👇 Melakukan perulangan untuk menampilkan data barang
         for product in lists_barang['products']:
             tabel_barang.add_row([
                 product['id'], product['name'], 
-                product['price'], product['stock'],
-                product['discount']])
+                product['price'], product['stock']])
         print(f"{Color.KUNING} TABEL BARANG {BackgroundColor.RESET}")
         print(tabel_barang)
 
@@ -75,13 +72,11 @@ class KasirAdmin:
         nama_barang  = input("Masukkan nama barang: ")
         stock_barang = input("Masukkan stock barang: ")
         harga_barang = input("Masukkan harga barang: ")
-        diskon_barang = input("Masukkan diskon barang: ")
         barang = {
             'id': id_barang,
             'name': nama_barang,
             'price': harga_barang,
-            'stock': stock_barang,
-            'discount': diskon_barang
+            'stock': stock_barang
         }
         self.utilities.update_product(id_barang, barang)
 
