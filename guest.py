@@ -86,6 +86,9 @@ class Guest:
                 if product['stock'] <= 0:
                     print(f"{Color.MERAH}Produk dengan id `{id_produk}` tidak tersedia{BackgroundColor.RESET}")
                     return False
+                elif product['stock'] < int(jumlah_produk):
+                    print(f"{Color.MERAH}Produk dengan id `{id_produk}` tidak mencukupi stok{BackgroundColor.RESET}")
+                    return False
                 self.belanjaan['products'].append({
                     "id": product['id'],
                     "name": product['name'],
@@ -106,10 +109,10 @@ class Guest:
         tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK', 'COUNT'])
         total_harga  = 0
         for product in self.belanjaan['products']:
-            total_harga  += int(product['price']) * int(product['count'])
+            total_harga  = int(product['price'])
             tabel_barang.add_row([
                 product['id'], product['name'], 
-                product['price'], product['stock'], product['count']])
+                locale.currency(product['price'], grouping=True), product['stock'], product['count']])
         print(f"{Color.KUNING}+----------------- KERANJANG KUNING -----------------+{BackgroundColor.RESET}")
         print(tabel_barang)
         print(f"Total uang yang harus dibayar: {BackgroundColor.BIRU_GELAP} { locale.currency(total_harga, grouping=True) } {BackgroundColor.RESET}")
@@ -123,20 +126,21 @@ class Guest:
                 while uang_user == "": # Jika id barang kosong
                     print(Color.MERAH + "Uang harus diisi" + BackgroundColor.RESET)
                     uang_user = input(f"{Color.BIRU}Masukkan uang anda: {BackgroundColor.RESET}")
-                if int(uang_user) < total_harga:
+                while int(uang_user) < total_harga:
                     print(f"{Color.MERAH}Uang anda kurang!{BackgroundColor.RESET}")
-                elif int(uang_user) == total_harga:
+                    uang_user = input(f"{Color.BIRU}Masukkan uang anda: {BackgroundColor.RESET}")
+                if int(uang_user) == total_harga:
                     print(f"{Color.IJO}Uang yang ada berikan pas{BackgroundColor.RESET}")
                     for product in self.belanjaan['products']:
                         self.utilities.minus_product_stock(product['id'], product['count'])
                     self.belanjaan['products'] = []
                     self.is_paying_running = False 
-                elif int(uang_user) >= total_harga:
+                if int(uang_user) >= total_harga:
                     print(f"{Color.IJO}Kembalian anda: { locale.currency(int(uang_user) - total_harga, grouping=True) }{BackgroundColor.RESET}")
                     for product in self.belanjaan['products']:
                         self.utilities.minus_product_stock(product['id'], product['count'])
                     self.belanjaan['products'] = []
-                    self.is_paying_running = False     
+                    self.is_paying_running = False
                 print(f"{Color.KUNING}+---------- Terima kasih sudah berbelanja -----------+{BackgroundColor.RESET}")
 
     def lihat_keranjang(self):
@@ -147,10 +151,10 @@ class Guest:
         tabel_barang = PrettyTable(['ID','NAME', 'PRICE', 'STOCK', 'COUNT'])
         total_harga  = 0
         for product in self.belanjaan['products']:
-            total_harga  += int(product['price']) * int(product['count'])
+            total_harga  += int(product['price'])
             tabel_barang.add_row([
                 product['id'], product['name'], 
-                product['price'], product['stock'], product['count']])
+                locale.currency(product['price'], grouping=True), product['stock'], product['count']])
         print(f"{Color.KUNING}+----------------- KERANJANG KUNING -----------------+{BackgroundColor.RESET}")
         print(tabel_barang)
         print(f"Total uang yang harus dibayar: {BackgroundColor.BIRU_GELAP} { locale.currency(total_harga, grouping=True) } {BackgroundColor.RESET}")
@@ -158,6 +162,7 @@ class Guest:
         print(f"{Color.KUNING}+----------------------------------------------------+{BackgroundColor.RESET}")
 
     def hapus_keranjang(self):
+        locale.setlocale(locale.LC_ALL, 'id_ID')
         self.garis()
         print(BackgroundColor.BIRU_GELAP + "                    HAPUS KERANJANG                   " + BackgroundColor.RESET)
         self.garis()
@@ -167,7 +172,7 @@ class Guest:
             total_harga  += int(product['price']) * int(product['count'])
             tabel_barang.add_row([
                 product['id'], product['name'], 
-                product['price'], product['stock'], product['count']])
+                locale.currency(product['price'], grouping=True), product['stock'], product['count']])
         print(f"{Color.KUNING}+----------------- KERANJANG KUNING -----------------+{BackgroundColor.RESET}")
         print(tabel_barang)
         print(f"{Color.KUNING}+----------------------------------------------------+{BackgroundColor.RESET}")

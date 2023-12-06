@@ -4,31 +4,13 @@
             "id": "P-001",
             "name": "Karet Ikat",
             "price": "5500",
-            "stock": 5
+            "stock": 8
         },
         {
             "id": "P-003",
-            "name": "Karet Gelang",
-            "price": "2500",
-            "stock": 5
-        },
-        {
-            "id": "P-005",
-            "name": "Kipas Angin ",
-            "price": "25000",
-            "stock": "100"
-        },
-        {
-            "id": "P-004",
-            "name": "Buku Tulis",
-            "price": "5000",
-            "stock": "200"
-        },
-        {
-            "id": "P-008",
-            "name": "Pepsodent",
-            "price": 5000,
-            "stock": 5
+            "name": "Earphone TWS",
+            "price": 120000,
+            "stock": 9
         }
     ]
 }
